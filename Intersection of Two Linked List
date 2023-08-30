@@ -1,0 +1,67 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        if(headA==NULL||headB==NULL)
+        return NULL;
+         ListNode* a=headA;
+         ListNode* b=headB;
+         // yhin galti karoge a!=NULL ya b!=NULL karoge to ye a ko null tk lejayega ya to b ko le jayega
+         while(a->next!=NULL&&b->next!=NULL)
+         {
+             a=a->next;
+             b=b->next;
+         }
+         int cnt=0;
+         bool flag=0;
+         // AUr phir iska next access ki kosish karoge to NULL pointer exception batyega
+         if(a->next==0)
+         {
+               while(b->next!=NULL)
+               {
+                   cnt++;
+                   b=b->next;
+                   flag=1;
+               }
+         }
+         else
+         {
+              while(a->next!=NULL)
+               {
+                   cnt++;
+                   a=a->next;
+                   flag=0;
+               }
+         }
+         if(flag)
+         {
+            while(cnt--)
+            {
+                headB=headB->next;
+            }
+         }
+         else
+         {
+               while(cnt--)
+               {
+                   headA=headA->next;
+               }
+         }
+         while(headA!=NULL&&headB!=NULL)
+         {
+             if(headA==headB)
+             return headA;
+             headA=headA->next;
+             headB=headB->next;
+         }
+        return headA;
+
+    }
+};
