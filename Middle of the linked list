@@ -1,0 +1,74 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+   int findlen(ListNode* head)
+   {
+       ListNode* temp=head;
+       int len=0;
+       while(temp!=NULL)
+       {
+             len++;
+             temp=temp->next;
+       }
+       return len;
+   }
+    ListNode* middleNode(ListNode* head) {
+        //Approach 1 find length and then if even((n+1)/2) and if(odd(n/2))
+        // int len=findlen(head);
+        // if(len==1)
+        // return head;
+        // if(len==2)
+        // return head->next;
+        // ListNode* temp=head;
+        // if(len%2==0)
+        // {
+        //   len=(len+1)/2;
+        //   while(len--)
+        //   {
+        //       temp=temp->next;
+        //   }
+        // }
+        // else
+        // {
+        //    len=len/2;
+        //    while(len--)
+        //    {
+        //        temp=temp->next;
+        //    }
+        // }
+        // return temp;
+        // Approach slow and fast pointer approach
+
+         ListNode* slow=head;
+         ListNode* fast=head;
+         // first method of writing loop
+        //  while(slow!=NULL&&fast!=NULL)
+        //  {
+        //      fast=fast->next;
+        //      if(fast!=NULL)
+        //      {
+        //          fast=fast->next;
+        //          slow=slow->next;
+        //      }
+        //  }
+        //  return slow;
+        // Another method of writing loop
+         while(fast!=NULL&&fast->next!=NULL)
+         {
+                 fast=fast->next;
+                 fast=fast->next;
+                 slow=slow->next;
+            
+         }
+         return slow;
+    }
+};
