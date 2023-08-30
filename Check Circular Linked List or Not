@@ -1,0 +1,44 @@
+
+
+/* Link list Node 
+struct Node
+{
+    int data;
+    struct Node* next;
+    
+    Node(int x){
+        data = x;
+        next = NULL;
+    }
+    
+}; 
+*/
+
+/* Should return true if linked list is circular, else false */
+bool isCircular(Node *head)
+{
+    // Approach 1 if take the head node and match it with every node if it occurs again then true otherwise false
+//     if(head==NULL)
+//     return true;
+//   Node* temp=head;
+//   while(head!=NULL)
+//   {
+//       head=head->next;
+//       if(temp==head)
+//       return true;
+       
+//   }
+//   return false;
+     // Approach two slow and fast
+     Node* slow=head;
+     Node* fast=head;
+     while(fast!=NULL&&fast->next!=NULL)
+     {
+         fast=fast->next;
+             fast=fast->next;
+             slow=slow->next;
+         if(fast==slow)
+         return true;
+     }
+     return false;
+}
