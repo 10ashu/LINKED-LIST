@@ -1,0 +1,38 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+      void  find(ListNode* &head,int& n)
+    {
+        if(head==NULL)
+        return ;
+        find(head->next,n);
+        if(n==0)
+        head->next=head->next->next;
+        n--;
+    }
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        if(head==NULL)
+        return NULL;
+        int len=0;
+        ListNode* temp=head;
+        while(temp!=NULL)
+        {
+            len++;
+            temp=temp->next;
+        }
+        // ye case wo h jb apne ko first Node hatani ho but uski previous node to hai hi nhi to agr len aur n equal ho first Node hatani hogi t        that is return head->next;
+        if(len==n)
+        return head->next;
+        find(head,n);
+        return head;
+    }
+};
