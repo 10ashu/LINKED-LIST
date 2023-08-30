@@ -1,0 +1,76 @@
+/*
+structure of linked list node:
+
+struct Node
+{
+    int data;
+    Node* next;
+    
+    Node(int val)
+    {
+        data = val;
+        next = NULL;
+    }
+};
+
+*/
+
+class Solution
+{
+    public:
+    //Function to remove a loop in the linked list.
+    bool checkcircular(Node* head)
+    {
+             Node* slow=head;
+     Node* fast=head;
+     while(fast!=NULL&&fast->next!=NULL)
+     {
+         fast=fast->next;
+             fast=fast->next;
+             slow=slow->next;
+         if(fast==slow)
+         return true;
+     }
+     return false;
+    }
+    void removeLoop(Node* head)
+    {
+         if(head==NULL||head->next==NULL)
+          return ;
+           Node*temp=head;
+        if(checkcircular(head))
+        {
+            while(temp->next!=head)
+            {
+                temp=temp->next;
+            }
+            temp->next=NULL;
+            return;
+        }
+        Node* slow=head;
+        Node* fast=head;
+        
+        while(fast!=NULL&&fast->next!=NULL)
+        {
+            fast=fast->next->next;
+            slow=slow->next;
+            if(fast==slow)
+            {
+                break;
+            }
+        }
+        // circular k bhi loop hta do
+        slow=head;
+    
+            Node* pre;
+            while(slow!=fast){
+                pre=fast;
+                slow=slow->next;
+                fast=fast->next;
+            }
+            pre->next=0;
+            
+          
+        
+    }
+};
