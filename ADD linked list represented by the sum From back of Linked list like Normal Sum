@@ -1,0 +1,85 @@
+/* node for linked list:
+
+struct Node {
+    int data;
+    struct Node* next;
+    Node(int x) {
+        data = x;
+        next = NULL;
+    }
+};
+
+*/
+
+class Solution
+{
+    public:
+    //Function to add two numbers represented by linked list.
+    Node* reverse(Node* pre,Node* curr)
+    {
+        if(curr==NULL)
+        return pre;
+        Node* forw=curr->next;
+        curr->next=pre;
+        
+        return reverse(curr,forw);
+    }
+    struct Node* addTwoLists(struct Node* first, struct Node* second)
+    {
+              first=reverse(NULL,first);
+             second=reverse(NULL,second);
+             int carry=0;
+             Node* anshead=NULL;
+             Node* anstail=NULL;
+             while(first!=NULL&&second!=NULL)
+             {
+                 int sum=first->data+second->data+carry;
+                 int digit=sum%10;
+                 carry=sum/10;
+                 Node* newNode=new Node(digit);
+                 if(anshead==NULL)
+                 {
+                     anshead=newNode;
+                     anstail=newNode;
+                 }
+                 else
+                 {
+                     anstail->next=newNode;
+                     anstail=anstail->next;
+                 }
+                 first=first->next;
+                 second=second->next;
+             }
+             while(first!=NULL)
+             {
+                 int sum=first->data+carry;
+                 int digit=sum%10;
+                 carry=sum/10;
+                 Node* newNode=new Node(digit);
+                 anstail->next=newNode;
+                 anstail=anstail->next;
+                 first=first->next;
+             }
+                while(second!=NULL)
+             {
+                 int sum=second->data+carry;
+                 int digit=sum%10;
+                 carry=sum/10;
+                 Node* newNode=new Node(digit);
+                 anstail->next=newNode;
+                 anstail=anstail->next;
+                 second=second->next;
+             }
+             while(carry!=0){
+                 int sum=carry;
+                 int digit=sum%10;
+                 carry=sum/10;
+                 carry=sum/10;
+                 Node* newNode=new Node(digit);
+                 anstail->next=newNode;
+                 anstail=anstail->next;
+             }
+             anshead=reverse(NULL,anshead);
+             return anshead;
+    }
+};
